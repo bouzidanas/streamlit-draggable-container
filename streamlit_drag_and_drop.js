@@ -7,8 +7,8 @@ let dragIndex = 0;
 
 
 function dragStart(event) {
-    console.log('drag start');
-    console.log(event);
+    // console.log('drag start');
+    // console.log(event);
     draggedElement = event.target;
 }
 
@@ -46,8 +46,8 @@ draggableContainers.forEach(container => {
                         //make cursor/point the copy cursor
                         event.dataTransfer.dropEffect = 'copy';
 
-                        console.log(event);
-                        console.log(dropZone);
+                        // console.log(event);
+                        // console.log(dropZone);
                         let remove = true;
                         let container = event.fromElement;
                         while (container && container.tagName !== 'BODY') {
@@ -58,7 +58,7 @@ draggableContainers.forEach(container => {
                         }
                         if (remove && event.fromElement !== dropZone && !event.fromElement.classList.contains('floating-dot')) {
                             const dots = root.querySelectorAll('.floating-dot');
-                            console.log('remove dots dragleave');
+                            // console.log('remove dots dragleave');
                             dots.forEach(dot => {
                                 dot.remove();
                             });
@@ -66,7 +66,7 @@ draggableContainers.forEach(container => {
                     });
                     dropZone?.addEventListener('dragover', function(event) {
                         event.preventDefault();
-                        console.log(event.target);
+                        // console.log(event.target);
                         
                         //make cursor/point the copy cursor
                         event.dataTransfer.dropEffect = 'copy';
@@ -76,7 +76,7 @@ draggableContainers.forEach(container => {
                         const children = Array.from(dropZone.children);
                         let i = 0;
                         for (const child of children) {
-                            console.log(child.offsetTop + child.offsetHeight / 2, y);
+                            // console.log(child.offsetTop + child.offsetHeight / 2, y);
                             if (child.offsetTop + child.offsetHeight / 2 < y) {
                                 i++;
                             }
@@ -87,7 +87,7 @@ draggableContainers.forEach(container => {
                         }
                         else {
                             // remove any floating dots
-                            console.log('remove dots' , i, dragIndex);
+                            // console.log('remove dots' , i, dragIndex);
                             const dots = root.querySelectorAll('.floating-dot');
                             dots.forEach(dot => {
                                 dot.remove();
@@ -95,7 +95,7 @@ draggableContainers.forEach(container => {
                         }
                         dragIndex = i;
 
-                        console.log(i);
+                        // console.log(i);
                         if (children[i] !== draggedElement && children[i] !== draggedElement.nextSibling) {
                             const dot = document.createElement('div');
                             dot.style.position = 'absolute';
@@ -127,20 +127,20 @@ draggableContainers.forEach(container => {
                             dot.remove();
                         });
                         
-                        console.log('drop');
-                        console.log(event);
+                        // console.log('drop');
+                        // console.log(event);
                         // insert parent at location of drop in dropZone
                         const rect = dropZone.getBoundingClientRect();
                         const y = event.clientY - rect.top;
                         const children = Array.from(dropZone.children);
                         let i = 0;
                         for (const child of children) {
-                            console.log(child.offsetTop + child.offsetHeight / 2, y);
+                            // console.log(child.offsetTop + child.offsetHeight / 2, y);
                             if (child.offsetTop + child.offsetHeight / 2 < y) {
                                 i++;
                             }
                         }
-                        console.log(i);
+                        // console.log(i);
                         dropZone.insertBefore(draggedElement, children[i]);
                     });
                 }

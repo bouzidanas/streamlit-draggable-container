@@ -49,3 +49,4 @@ container3 = draggable_container(border=True)
 with container3:
     st.write("This is the second draggable container")
     st.info("This one has no drag handle. Grab it from anywhere inside the container.")
+    st.warning("Now that every mouse click and drag is treated as an attempt to move this container, you can no longer select text inside the container.")
