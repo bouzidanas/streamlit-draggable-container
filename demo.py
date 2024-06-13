@@ -5,14 +5,12 @@ import streamlit.components.v1 as components
 with open("streamlit_drag_and_drop.js", "r") as file:
     js_code = file.read()
 
-
 html = """
 <script>""" + js_code + """    
 </script>
 <div class='elim'></div>
 """
 components.html(html)
-
 
 def draggable_container(*args, handle=False, destination=False, **kwargs):
     container = st.container(*args, **kwargs)
