@@ -9,7 +9,9 @@ let dragIndex = 0;
 function dragStart(event) {
     console.log('drag start');
     console.log("event: ", event);
-    draggedElement = event.target;
+    if (event.target.draggable){
+        draggedElement = event.target;
+    }
 }
 
 draggableContainers = root.querySelectorAll('.draggable-parent');
@@ -149,11 +151,11 @@ draggableContainers.forEach(container => {
                         // console.log(i);
                         try{
                             dropZone.insertBefore(draggedElement, children[i]);
-                            draggedElement = null;
                         } catch (e) {
                             console.warn("Draggable container to insert not found.");
                             console.warn(e);
                         }
+                        draggedElement = null;
                     });
                 }
             }
