@@ -120,8 +120,7 @@ draggableContainers.forEach(container => {
                                 dropZone.parentNode.insertBefore(dot, dropZone);
                             }
                         } catch (e) {
-                            console.warn("Dragged element has no draggable container parent detected. Drag and drop may not work as expected.");
-                            console.warn(e);
+                            console.warn("Dragged element has no draggable container parent detected. Drag and drop may not work as expected.", e);
                         }
                         
                     });
@@ -152,8 +151,7 @@ draggableContainers.forEach(container => {
                         try{
                             dropZone.insertBefore(draggedElement, children[i]);
                         } catch (e) {
-                            console.warn("Draggable container to insert not found.");
-                            console.warn(e);
+                            console.warn("Draggable container not found.", e);
                         }
                         draggedElement = null;
                     });
