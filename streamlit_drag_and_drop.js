@@ -1,5 +1,5 @@
 root = window.parent.document;
-console.log(root);
+// console.log(root);
 
 let dropZones = [];
 let draggedElement = null;
@@ -7,8 +7,8 @@ let dragIndex = 0;
 
 
 function dragStart(event) {
-    console.log('drag start');
-    console.log("event: ", event);
+    // console.log('drag start');
+    // console.log("event: ", event);
     if (event.target.draggable){
         draggedElement = event.target;
     }
@@ -20,7 +20,7 @@ draggableContainers.forEach(container => {
     while (parent && parent.tagName !== 'BODY') {
         parent = parent.parentNode;
         if (parent.dataset.testid === 'stVerticalBlockBorderWrapper') {
-            console.log(parent);
+            // console.log(parent);
             if (container.classList.contains('no-drag-handle')) {
                 parent.draggable = true;
             }
@@ -128,7 +128,7 @@ draggableContainers.forEach(container => {
                     dropZone?.addEventListener('drop', function(event) { 
                         event.preventDefault();
                        
-                        console.log(event)
+                        // console.log(event)
                         // remove any floating dots
                         const dots = root.querySelectorAll('.floating-dot');
                         dots.forEach(dot => {
