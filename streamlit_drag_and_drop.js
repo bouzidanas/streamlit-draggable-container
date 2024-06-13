@@ -7,8 +7,8 @@ let dragIndex = 0;
 
 
 function dragStart(event) {
-    // console.log('drag start');
-    // console.log(event);
+    console.log('drag start');
+    console.log("event: ", event);
     draggedElement = event.target;
 }
 
@@ -96,31 +96,37 @@ draggableContainers.forEach(container => {
                         dragIndex = i;
 
                         // console.log(i);
-                        if (children[i] !== draggedElement && children[i] !== draggedElement.nextSibling) {
-                            const dot = document.createElement('div');
-                            dot.style.position = 'absolute';
-                            // dot.style.width = '4px';
-                            // dot.style.height = '4px';
-                            // dot.style.backgroundColor = '#444444';
-                            // dot.style.borderRadius = '50%';
-                            dot.style.width = '8%';
-                            dot.style.height = '4px';
-                            dot.style.backgroundColor = '#444444';
-                            dot.style.borderRadius = '2px';
-                            dot.style.left = '46%';
-                            if (i === children.length) {
-                                dot.style.top = rect.top + children[i-1].offsetTop + children[i-1].offsetHeight + 10 + 'px';
-                            } else {
-                                dot.style.top = rect.top + children[i].offsetTop - 10 + 'px';
+                        try{
+                            if (children[i] !== draggedElement && children[i] !== draggedElement.nextSibling) {
+                                const dot = document.createElement('div');
+                                dot.style.position = 'absolute';
+                                // dot.style.width = '4px';
+                                // dot.style.height = '4px';
+                                // dot.style.backgroundColor = '#444444';
+                                // dot.style.borderRadius = '50%';
+                                dot.style.width = '8%';
+                                dot.style.height = '4px';
+                                dot.style.backgroundColor = '#444444';
+                                dot.style.borderRadius = '2px';
+                                dot.style.left = '46%';
+                                if (i === children.length) {
+                                    dot.style.top = rect.top + children[i-1].offsetTop + children[i-1].offsetHeight + 10 + 'px';
+                                } else {
+                                    dot.style.top = rect.top + children[i].offsetTop - 10 + 'px';
+                                }
+                                dot.classList.add('floating-dot');
+                                dropZone.parentNode.insertBefore(dot, dropZone);
                             }
-                            dot.classList.add('floating-dot');
-                            dropZone.parentNode.insertBefore(dot, dropZone);
+                        } catch (e) {
+                            console.warn("Dragged element has no draggable container parent detected. Drag and drop may not work as expected.");
+                            console.warn(e);
                         }
                         
                     });
                     dropZone?.addEventListener('drop', function(event) { 
                         event.preventDefault();
                        
+                        console.log(event)
                         // remove any floating dots
                         const dots = root.querySelectorAll('.floating-dot');
                         dots.forEach(dot => {
@@ -141,7 +147,13 @@ draggableContainers.forEach(container => {
                             }
                         }
                         // console.log(i);
-                        dropZone.insertBefore(draggedElement, children[i]);
+                        try{
+                            dropZone.insertBefore(draggedElement, children[i]);
+                            draggedElement = null;
+                        } catch (e) {
+                            console.warn("Draggable container to insert not found.");
+                            console.warn(e);
+                        }
                     });
                 }
             }
