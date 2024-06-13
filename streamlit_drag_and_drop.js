@@ -41,6 +41,11 @@ draggableContainers.forEach(container => {
                     dropZones.push(dropZone);
                      // also remove dot if mouse leaves drop container
                      dropZone?.addEventListener('dragleave', function(event) {
+                        event.preventDefault();
+
+                        //make cursor/point the copy cursor
+                        event.dataTransfer.dropEffect = 'copy';
+
                         console.log(event);
                         console.log(dropZone);
                         let remove = true;
@@ -63,6 +68,8 @@ draggableContainers.forEach(container => {
                         event.preventDefault();
                         console.log(event.target);
                         
+                        //make cursor/point the copy cursor
+                        event.dataTransfer.dropEffect = 'copy';
 
                         const rect = dropZone.getBoundingClientRect();
                         const y = event.clientY - rect.top;
@@ -104,10 +111,10 @@ draggableContainers.forEach(container => {
                             if (i === children.length) {
                                 dot.style.top = rect.top + children[i-1].offsetTop + children[i-1].offsetHeight + 10 + 'px';
                             } else {
-                                dot.style.top = rect.top + children[i].offsetTop - 12 + 'px';
+                                dot.style.top = rect.top + children[i].offsetTop - 10 + 'px';
                             }
                             dot.classList.add('floating-dot');
-                            dropZone.parentNode.appendChild(dot);
+                            dropZone.parentNode.insertBefore(dot, dropZone);
                         }
                         
                     });
