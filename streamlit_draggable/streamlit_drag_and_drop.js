@@ -181,7 +181,6 @@ draggableContainers.forEach(container => {
 });
 
 Object.keys(namedDropZones).forEach(key => {
-
     let parent = root.querySelector(`.dz-${key}`);
     if (parent?.classList.contains("destination-parent")){
         parent = parent.parentNode;
