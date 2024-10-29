@@ -213,9 +213,11 @@ Object.keys(namedDropZones).forEach(key => {
                 });
 
                 dropZone?.addEventListener('dragover', function(event) {
+                    event.preventDefault();
 
                     if (namedDropZones[key].includes(draggedElement)) {
-                        event.preventDefault();
+                        
+                        console.log(event.target);
 
                         event.dataTransfer.dropEffect = 'copy';
 
