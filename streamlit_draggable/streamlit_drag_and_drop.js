@@ -17,26 +17,35 @@ function dragStart(event) {
 
 draggableContainers = root.querySelectorAll('.draggable-parent');
 draggableContainers.forEach(container => {
+    // For each draggable container, find the parent container. Contrary to the name 'draggable container', it is the parent
+    // of this container that will be dragged and dropped instead. We use a while loop to traverse up the DOM tree until we find
+    // the parent container that will be dragged and dropped.
     let parent = container.parentNode;
     while (parent && parent.tagName !== 'BODY') {
         parent = parent.parentNode;
+
+        // The parent container is detected by the data-testid attribute. If 'testid' is 'stVerticalBlockBorderWrapper', then
+        // we have found the parent container that will be dragged and dropped. 
         if (parent.dataset.testid === 'stVerticalBlockBorderWrapper') {
             // console.log(parent);
+
+            // If the container has the class 'no-drag-handle', then the parent container will be draggable.
             if (container.classList.contains('no-drag-handle')) {
                 parent.draggable = true;
             }
+            // If the container has the class 'drag-handle', then the parent container will be draggable when the mouse hovers over the handle element.
+            // The handle element is the element that has the class 'drag-handle'.
             else {
                 parent.querySelectorAll('.drag-handle')?.forEach(handle => {
                     handle.addEventListener('mouseover', function(event) {
                         parent.draggable = true;
                     });
-                });
-                parent.querySelectorAll('.drag-handle')?.forEach(handle => {
                     handle.addEventListener('mouseout', function(event) {
                         parent.draggable = false;
                     });
                 });
             }
+            // If the container has the class 'no-destination', then the parent container will be set as the drop zone.
             if (container.classList.contains('no-destination')) {
                 // if dropZones doesnt contain parent.parentNode, add it
                 const dropZone = parent.parentNode;
